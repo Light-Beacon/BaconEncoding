@@ -141,7 +141,7 @@ class Enigma(EncodingBase):
         self.reflector = None
         self.parser.add_argument('-s','--scrambler',help='Scrambler wiring', type=str)
         self.parser.add_argument('-r','--reflector',help='Reflector wiring', type=str, default=None)
-        self.parser.add_argument('-p','--positions', help='Initial position of the scramblers', type=str, default='A')
+        self.parser.add_argument('-p','--positions', help='Initial position of the scramblers', type=str, default=None)
         self.parser.add_argument('-S', '--static', action='store_true', help='Static mode, no rotation of scramblers')
 
 Enigma()
