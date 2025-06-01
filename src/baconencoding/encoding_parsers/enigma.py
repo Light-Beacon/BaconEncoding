@@ -16,7 +16,7 @@ class Scrambler:
         self.forward_wiring = [None] * 26
         self.backward_wiring = [None] * 26
         self.set_wiring(wiring)
-        self.postion = pos
+        self.postion = pos % 26
 
     def set_wiring(self, wiring: str):
         wiring = wiring.upper()
@@ -131,15 +131,16 @@ class Enigma(EncodingBase):
         scramblers = parser_args.scrambler.split(',')
         reflector = parser_args.reflector
         static = parser_args.static
-        machine = EnigmaMachine(scramblers=scramblers, reflector=reflector, static=static)
+        postions = parser_args.positions.upper()
+        machine = EnigmaMachine(scramblers=scramblers, reflector=reflector, static=static, postions=postions)
         return machine.decode(code)
 
     def __init__(self):
         super().__init__()
         self.scramblers = []
         self.reflector = None
+        self.parser.add_argument('-s','--scrambler',help='Scrambler wiring', type=str)
         self.parser.add_argument('-r','--reflector',help='Reflector wiring', type=str, default=None)
-        self.parser.add_argument('-s','--scrambler',help='Scrambler wiring', type=str, default=0)
         self.parser.add_argument('-p','--positions', help='Initial position of the scramblers', type=str, default='A')
         self.parser.add_argument('-S', '--static', action='store_true', help='Static mode, no rotation of scramblers')
 
